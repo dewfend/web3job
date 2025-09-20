@@ -5,85 +5,121 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Web3.0 Job｜Web3 Headhunting (No Resume · No Job Board)</title>
   <meta name="description" content="Executive & critical hires across DeFi, L2, RWA, DePIN and AI+Crypto. Market mapping, compensation & token advisory, stealth engagements and post‑hire follow‑up. No resume intake. No public jobs." />
+  <meta name="color-scheme" content="dark" />
   <style>
+    /* ===== Design tokens & responsive scales ===== */
     :root{
       --bg:#0b1022; --fg:#e5e7eb; --muted:#9ca3af;
       --brand:#7c3aed; --accent:#38bdf8; --border:#1f2937;
       --card: rgba(255,255,255,.05);
       --ok:#22c55e; --warn:#f59e0b;
+
+      /* fluid type & spacing */
+      --fs-base: clamp(15px, 1.2vw + 12px, 17px);
+      --fs-h1: clamp(28px, 4.5vw + 12px, 44px);
+      --fs-h2: clamp(22px, 2.2vw + 10px, 30px);
+      --fs-h3: clamp(17px, 1.6vw + 10px, 20px);
+      --space-section: clamp(48px, 7vw, 80px);
+      --space-gap: clamp(12px, 2.5vw, 18px);
+      --radius: 14px;
+      --btn-pad-y: clamp(12px, 1.8vw, 14px);
+      --btn-pad-x: clamp(16px, 2.8vw, 20px);
+      --container: 1100px;
+      --sticky-h: 58px;
     }
+
     *{box-sizing:border-box}
     html{scroll-behavior:smooth}
     body{
       margin:0; background:var(--bg); color:var(--fg);
-      font: 16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Arial,"PingFang SC","Microsoft YaHei";
+      font: var(--fs-base)/1.7 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Arial,"PingFang SC","Microsoft YaHei";
       text-rendering:optimizeLegibility; -webkit-font-smoothing:antialiased;
     }
     a{color:var(--brand); text-decoration:none}
-    a:hover{opacity:.9}
-    .wrap{max-width:1100px; margin:0 auto; padding:0 18px}
-    .section{padding:64px 0}
+    a:hover{opacity:.92}
+    a:focus-visible,.btn:focus-visible{outline:2px solid var(--accent); outline-offset:2px; border-radius:12px}
+
+    img{max-width:100%; height:auto; display:block; border-radius:10px}
+
+    .wrap{max-width:var(--container); margin:0 auto; padding:0 18px}
+    .section{padding:var(--space-section) 0; scroll-margin-top: calc(var(--sticky-h) + 14px)}
     h1,h2,h3{margin:0 0 12px}
-    h2{font-size:28px}
+    h1{font-size:var(--fs-h1); line-height:1.15}
+    h2{font-size:var(--fs-h2)}
+    h3{font-size:var(--fs-h3)}
     p{margin:8px 0}
     .muted{color:var(--muted)}
     .tag{display:inline-block; border:1px solid var(--border); color:#cbd5e1; border-radius:999px; padding:6px 10px; font-size:12px; margin-right:6px}
-    .card{background:var(--card); border:1px solid var(--border); border-radius:14px; padding:18px}
-    .grid-3{display:grid; gap:14px; grid-template-columns:repeat(3,1fr)}
-    .grid-2{display:grid; gap:18px; grid-template-columns:1.5fr 1fr}
+    .card{background:var(--card); border:1px solid var(--border); border-radius:var(--radius); padding:clamp(14px,2.6vw,20px)}
+    .grid-3{display:grid; gap:var(--space-gap); grid-template-columns:repeat(auto-fit, minmax(260px, 1fr))}
+    .grid-2{display:grid; gap:var(--space-gap); grid-template-columns:repeat(auto-fit, minmax(320px, 1fr))}
     .list{padding-left:18px} .list li{margin:6px 0}
-    .btn{display:inline-block; background:linear-gradient(135deg,var(--brand),var(--accent)); color:#fff; padding:12px 18px; border-radius:12px; font-weight:600; border:1px solid var(--border)}
-    .btn.ghost{background:rgba(255,255,255,.07); color:var(--fg)}
+    .btn{
+      display:inline-block; background:linear-gradient(135deg,var(--brand),var(--accent)); color:#fff;
+      padding:var(--btn-pad-y) var(--btn-pad-x); border-radius:12px; font-weight:600; border:1px solid var(--border);
+      min-height:44px; line-height:1; vertical-align:middle;
+    }
+    .btn.ghost{background:rgba(255,255,255,.08); color:var(--fg)}
     .pill{display:inline-flex; align-items:center; gap:8px; padding:8px 12px; border:1px solid var(--border); border-radius:999px; color:#cbd5e1}
     .ok{color:var(--ok)} .warn{color:var(--warn)}
     .divider{height:1px; background:var(--border); margin:24px 0}
-    .hl{background:rgba(56,189,248,.16); border:1px solid var(--border); padding:6px 10px; border-radius:8px; font-weight:600; color:var(--fg)}
+    .hl{background:rgba(56,189,248,.16); border:1px solid var(--border); padding:8px 12px; border-radius:10px; font-weight:650; color:var(--fg)}
 
-    /* Header */
+    /* ===== Header (mobile-friendly nav) ===== */
     header{position:sticky; top:0; z-index:20; backdrop-filter:saturate(180%) blur(10px); background:rgba(11,16,34,.65); border-bottom:1px solid var(--border)}
-    .nav{height:58px; display:flex; align-items:center; justify-content:space-between}
-    .brand{font-weight:800; letter-spacing:.3px}
-    .nav a{margin-left:14px; color:#cbd5e1}
+    .nav{height:var(--sticky-h); display:flex; align-items:center; justify-content:space-between; gap:10px}
+    .brand{font-weight:800; letter-spacing:.3px; white-space:nowrap}
+    .nav-links{display:flex; gap:12px; overflow-x:auto; white-space:nowrap; -webkit-overflow-scrolling:touch; scrollbar-width:none}
+    .nav-links::-webkit-scrollbar{display:none}
+    .nav a{color:#cbd5e1}
     .nav a:hover{color:#fff}
 
-    /* Hero */
+    /* ===== Hero ===== */
     .hero{
       background: radial-gradient(1200px 600px at 50% -20%, rgba(124,58,237,.25), transparent 60%);
-      text-align:center; padding:84px 0 48px; border-bottom:1px solid var(--border)
+      text-align:center; padding:calc(var(--space-section) + 10px) 0 var(--space-section);
+      border-bottom:1px solid var(--border)
     }
-    .hero h1{font-size:40px; line-height:1.15}
-    .hero p{font-size:18px; color:var(--muted)}
+    .hero p{font-size:clamp(16px, 1.6vw + 12px, 18px); color:var(--muted)}
+    .hero .badges{margin-top:12px; display:flex; gap:8px; justify-content:center; flex-wrap:wrap}
 
-    /* Steps */
+    /* ===== Steps timeline ===== */
     .steps{counter-reset:step}
     .step{display:flex; gap:12px; margin:12px 0}
     .step:before{counter-increment:step; content:counter(step); width:28px; height:28px; border-radius:999px; display:inline-flex; align-items:center; justify-content:center; background:rgba(124,58,237,.2); border:1px solid var(--border); color:#e9d5ff; font-weight:700}
 
-    footer{border-top:1px solid var(--border); padding:24px 0 40px; color:#9aa3b2}
-    @media (max-width:920px){ .grid-3{grid-template-columns:1fr 1fr} .grid-2{grid-template-columns:1fr} .hero h1{font-size:34px} }
-    @media (max-width:640px){ .grid-3{grid-template-columns:1fr} .hero h1{font-size:28px} }
+    /* ===== Footer ===== */
+    footer{border-top:1px solid var(--border); padding:24px 0 calc(40px + env(safe-area-inset-bottom)); color:#9aa3b2}
+
+    /* ===== Motion reduce ===== */
+    @media (prefers-reduced-motion: reduce){
+      html{scroll-behavior:auto}
+      *{animation:none !important; transition:none !important}
+    }
   </style>
 </head>
 <body>
+  <!-- Header -->
   <header>
     <div class="wrap nav">
       <div class="brand">Web3.0 Job</div>
-      <nav>
+      <nav class="nav-links">
         <a href="#services">What we do</a>
         <a href="#practice">Practice areas</a>
         <a href="#method">How we work</a>
         <a href="#comp">Comp & Token</a>
         <a href="#compliance">Compliance</a>
-        <a href="#contact" class="btn" style="padding:8px 12px;border-radius:8px;">Contact</a>
+        <a href="#contact" class="btn" style="padding:10px 14px;border-radius:10px;">Contact</a>
       </nav>
     </div>
   </header>
 
+  <!-- Hero -->
   <section class="hero">
     <div class="wrap">
       <h1>Connect top Web3 talent with high‑growth crypto companies</h1>
       <p>Executive & critical hires across DeFi / L2 / RWA / DePIN / AI+Crypto. Global coverage. Deep vetting. Strict confidentiality.</p>
-      <div style="margin-top:12px;">
+      <div class="badges">
         <span class="tag">Shortlist in 7–21 days</span>
         <span class="tag">Cash + token comp design</span>
         <span class="tag">Stealth / NDA‑first engagements</span>
@@ -91,6 +127,7 @@
     </div>
   </section>
 
+  <!-- What we do -->
   <section id="services" class="section">
     <div class="wrap">
       <h2>What we do <span style="font-size:14px;color:#94a3b8;margin-left:8px">For companies</span></h2>
@@ -123,6 +160,7 @@
     </div>
   </section>
 
+  <!-- Practice -->
   <section id="practice" class="section" style="border-top:1px solid var(--border)">
     <div class="wrap">
       <h2>Practice areas & roles</h2>
@@ -155,13 +193,14 @@
     </div>
   </section>
 
+  <!-- Method -->
   <section id="method" class="section" style="border-top:1px solid var(--border)">
     <div class="wrap">
       <h2>How we work</h2>
       <div class="steps" style="margin-top:14px;">
         <div class="step"><div>
           <strong>1) Scoping (60–90 mins)</strong>
-          <p class="muted">Role profile, must‑haves/nice‑to‑haves, budget and milestones.</p>
+          <p class="muted">Role profile, must‑haves/nice-to-haves, budget and milestones.</p>
         </div></div>
         <div class="step"><div>
           <strong>2) Market mapping (3–5 days)</strong>
@@ -181,13 +220,14 @@
         </div></div>
         <div class="step"><div>
           <strong>6) Post‑hire (30–90 days)</strong>
-          <p class="muted">Trial‑period support and bilateral feedback loop.</p>
+          <p class="muted">Trial-period support and bilateral feedback loop.</p>
         </div></div>
       </div>
       <p class="muted">We operate under strict confidentiality. Conflicts are disclosed upfront and recused when needed.</p>
     </div>
   </section>
 
+  <!-- Comp -->
   <section id="comp" class="section" style="border-top:1px solid var(--border)">
     <div class="wrap">
       <h2>Compensation & token advisory</h2>
@@ -210,6 +250,7 @@
     </div>
   </section>
 
+  <!-- Compliance -->
   <section id="compliance" class="section" style="border-top:1px solid var(--border)">
     <div class="wrap">
       <h2>Compliance & ethics</h2>
@@ -222,18 +263,16 @@
     </div>
   </section>
 
+  <!-- Contact (trimmed per request) -->
   <section id="contact" class="section" style="border-top:1px solid var(--border)">
     <div class="wrap">
       <h2>Contact</h2>
-      <p class="muted">Choose your preferred channel. We’ll confirm time and scope by reply.</p>
-      <p>
-        <a class="btn" href="mailto:contact@web3job.io?subject=Web3%20Headhunting%20Inquiry&body=Role%3A%0AScope%2FTrack%3A%0ABudget%3A%0ATimeline%3A%0AAny%20constraints%3A%0A">Send email</a>
-        <a class="btn ghost" target="_blank" rel="noopener" href="https://t.me/yourhandle">Telegram</a>
-      </p>
+      <!-- removed helper sentence and both buttons -->
       <p><span class="hl">contact@web3job.io</span></p>
     </div>
   </section>
 
+  <!-- Footer -->
   <footer>
     <div class="wrap" style="display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap;">
       <div>© <span id="y"></span> Web3.0 Job · All rights reserved.</div>
