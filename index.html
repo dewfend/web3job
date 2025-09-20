@@ -25,6 +25,7 @@
       --btn-pad-y: clamp(12px, 1.8vw, 14px);
       --btn-pad-x: clamp(16px, 2.8vw, 20px);
       --container: 1100px;
+      --container-pad: 18px;
       --sticky-h: 58px;
     }
 
@@ -41,7 +42,7 @@
 
     img{max-width:100%; height:auto; display:block; border-radius:10px}
 
-    .wrap{max-width:var(--container); margin:0 auto; padding:0 18px}
+    .wrap{max-width:var(--container); margin:0 auto; padding:0 var(--container-pad)}
     .section{padding:var(--space-section) 0; scroll-margin-top: calc(var(--sticky-h) + 14px)}
     h1,h2,h3{margin:0 0 12px}
     h1{font-size:var(--fs-h1); line-height:1.15}
@@ -55,7 +56,8 @@
     .grid-2{display:grid; gap:var(--space-gap); grid-template-columns:repeat(auto-fit, minmax(320px, 1fr))}
     .list{padding-left:18px} .list li{margin:6px 0}
     .btn{
-      display:inline-block; background:linear-gradient(135deg,var(--brand),var(--accent)); color:#fff;
+      display:inline-flex; align-items:center; justify-content:center;
+      background:linear-gradient(135deg,var(--brand),var(--accent)); color:#fff;
       padding:var(--btn-pad-y) var(--btn-pad-x); border-radius:12px; font-weight:600; border:1px solid var(--border);
       min-height:44px; line-height:1; vertical-align:middle;
     }
@@ -65,14 +67,16 @@
     .divider{height:1px; background:var(--border); margin:24px 0}
     .hl{background:rgba(56,189,248,.16); border:1px solid var(--border); padding:8px 12px; border-radius:10px; font-weight:650; color:var(--fg)}
 
-    /* ===== Header (mobile-friendly nav) ===== */
+    /* ===== Header (precise vertical alignment) ===== */
     header{position:sticky; top:0; z-index:20; backdrop-filter:saturate(180%) blur(10px); background:rgba(11,16,34,.65); border-bottom:1px solid var(--border)}
     .nav{height:var(--sticky-h); display:flex; align-items:center; justify-content:space-between; gap:10px}
-    .brand{font-weight:800; letter-spacing:.3px; white-space:nowrap}
-    .nav-links{display:flex; gap:12px; overflow-x:auto; white-space:nowrap; -webkit-overflow-scrolling:touch; scrollbar-width:none}
+    .brand{font-weight:800; letter-spacing:.3px; white-space:nowrap; display:flex; align-items:center; line-height:1}
+    .nav-links{display:flex; gap:12px; overflow-x:auto; white-space:nowrap; -webkit-overflow-scrolling:touch; scrollbar-width:none; align-items:center}
     .nav-links::-webkit-scrollbar{display:none}
-    .nav a{color:#cbd5e1}
-    .nav a:hover{color:#fff}
+    .nav-links a{display:flex; align-items:center; height:40px; line-height:1; padding:0 2px; color:#cbd5e1}
+    .nav-links a:hover{color:#fff}
+    /* Make the Contact button height match nav links for perfect alignment */
+    .nav .btn{min-height:40px; height:40px; padding:0 14px; border-radius:10px}
 
     /* ===== Hero ===== */
     .hero{
@@ -109,7 +113,7 @@
         <a href="#method">How we work</a>
         <a href="#comp">Comp & Token</a>
         <a href="#compliance">Compliance</a>
-        <a href="#contact" class="btn" style="padding:10px 14px;border-radius:10px;">Contact</a>
+        <a href="#contact" class="btn">Contact</a>
       </nav>
     </div>
   </header>
@@ -263,11 +267,10 @@
     </div>
   </section>
 
-  <!-- Contact (trimmed per request) -->
+  <!-- Contact -->
   <section id="contact" class="section" style="border-top:1px solid var(--border)">
     <div class="wrap">
       <h2>Contact</h2>
-      <!-- removed helper sentence and both buttons -->
       <p><span class="hl">contact@web3job.io</span></p>
     </div>
   </section>
